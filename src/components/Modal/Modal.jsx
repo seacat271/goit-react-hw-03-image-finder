@@ -33,7 +33,7 @@ if (event.currentTarget === event.target) {
 render (){ return createPortal(
     <Overlay onClick={this.handleBackDropClick}>
         <ModalTab>
-            <img src="" alt="" />
+            <img src={this.props.modalImage} alt="" />
             {this.props.children}
         </ModalTab>
   </Overlay>, ModalRoot)}

@@ -3,6 +3,8 @@ import {Component} from "react";
 import Searchbar from "./Searchbar/Searchbar";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Modal from "./Modal/Modal";
+import ButtonLoadMore from "./Button/Button";
+import Spinner from "components/Loader/Loader";
 
 
 export class App extends Component {
@@ -10,20 +12,52 @@ export class App extends Component {
 state = {
   index: 0,
   query: "",
-  showModal: false,
+  showModal: null,
+  status: "idle",
+  images: [],
+  page: 1,
+  error: null,
 }
+
+componentDidUpdate(prevProps, prevState) {
+    
+  if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
+    
+      this.setState({status: "pending"});
+      fetch(`https://pixabay.com/api/?key=29127762-27ecb80fc89c6fc72c273a026&q=${this.state.query}&per_page=12&page=${this.state.page}`)
+      .then(response => response.json())
+      .then(images => {
+        // this.setState({images: images.hits, status: "resolved", })
+        if (prevState.page !== this.state.page){
+          this.setState(prevState=> ({images: [...prevState.images, ...images.hits], status: "resolved", }))
+        } else this.setState({images: images.hits, status: "resolved", })
+      })
+      .catch(error => this.setState({ error, statue: "rejected" }))
+  }
+  }
 
 onSearchSubmit = event => {
   event.preventDefault();
   if (event.target.query.value.trim() === "") return
-  this.setState( {query: event.target.query.value.toLowerCase().trim()})
-  event.target.query.value = "";
+  this.setState({
+    query: event.target.query.value.toLowerCase().trim(),
+    page: 1,
+  })
 } 
-toggleModal = () => {
-this.setState(prevState => ({
-  showModal: !prevState.showModal
-}))
+openModal = (url) => {
+  this.setState({showModal: url})
+  }
+closeModal = () => {
+this.setState({showModal: null})
 }
+
+handleLoadMore = () =>{
+  this.setState(prevState => ({
+page: prevState.page + 1
+  }))
+}
+
+open
 
 
 
@@ -34,15 +68,24 @@ render () {
       <Searchbar
       onSearchSubmit = {this.onSearchSubmit}
       />
-      <ImageGallery
-      query = {this.state.query}>
-      </ImageGallery>
-      <button type="button" onClick={this.toggleModal}>Open Modal</button>
+      {(this.state.status === "idle") && <div>Enter image title</div>}
+      {(this.state.status === "resolved" || this.state.status === "pending") && <ImageGallery
+      openModal = {this.openModal}
+      images = {this.state.images}/>}
+ 
+
+      
       {showModal 
       && <Modal
-      onClose={this.toggleModal}>
-        <button onClick={this.toggleModal}>Close Modal</button>
+      onClose={this.closeModal}
+      modalImage={this.state.showModal}>
         </Modal>}
+
+        
+        {this.state.status === "rejected" && <h1>{this.state.error.message}</h1>}
+        {this.state.status === "pending" && <Spinner/>}
+        <ButtonLoadMore
+        handleLoadMore ={this.handleLoadMore}/>
     </div>
   );
 }

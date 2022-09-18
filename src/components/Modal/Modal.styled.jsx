@@ -14,9 +14,7 @@ background-color: rgba(0, 0, 0, 0.8);
 ` 
 
 export const ModalTab = styled.div`
-width: 200px;
-height: 200px;
+
   max-width: calc(100vw - 48px);
   max-height: calc(100vh - 24px);
-  background-color: #fff;
 ` 
