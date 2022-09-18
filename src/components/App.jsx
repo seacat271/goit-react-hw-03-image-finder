@@ -2,7 +2,6 @@ import {Component} from "react";
 
 import Searchbar from "./Searchbar/Searchbar";
 import ImageGallery from "./ImageGallery/ImageGallery";
-import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
 import Modal from "./Modal/Modal";
 
 
@@ -37,8 +36,6 @@ render () {
       />
       <ImageGallery
       query = {this.state.query}>
-        <ImageGalleryItem
-        images = {images}/>
       </ImageGallery>
       <button type="button" onClick={this.toggleModal}>Open Modal</button>
       {showModal 
