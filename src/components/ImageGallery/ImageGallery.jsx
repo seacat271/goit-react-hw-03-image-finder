@@ -1,5 +1,6 @@
 
-import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem"
+import ImageGalleryItem from "../ImageGalleryItem/ImageGalleryItem";
+import {Gallery} from "./ImageGallery.styled";
 
 
 
@@ -8,9 +9,9 @@ const ImageGallery =({images, openModal}) => {
 return ( 
     images.length !== 0 
         ? 
-        <ul class="gallery">
+        <Gallery>
              {images.map((image) => <ImageGalleryItem image = {image} key = {image.id} openModal ={openModal}/>)}
-           </ul>
+           </Gallery>
         : <div>No image with this title</div>
 
   )}

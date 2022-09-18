@@ -1,17 +1,18 @@
+import { SearchbarBox, SearchForm, SearchFormButton, ButtonLabel, SearchFormInput } from "./Searchbar.styled";
+
 const Searchbar = ({onSearchSubmit}) => {
 
   return (
-    <header class="searchbar">
-      <form class="form"
+    <SearchbarBox>
+      <SearchForm
       onSubmit={onSearchSubmit}>
-        <button 
+        <SearchFormButton 
         type="submit" 
-        class="button" 
         >
-          <span class="button-label">Search</span>
-        </button>
+          <ButtonLabel>Search</ButtonLabel>
+        </SearchFormButton>
 
-        <input
+        <SearchFormInput
           class="input"
           type="text"
           autoComplete="off"
@@ -19,8 +20,8 @@ const Searchbar = ({onSearchSubmit}) => {
           placeholder="Search images and photos"
           name="query"
         />
-      </form>
-    </header>
+      </SearchForm>
+    </SearchbarBox>
   );
 };
 export default Searchbar;

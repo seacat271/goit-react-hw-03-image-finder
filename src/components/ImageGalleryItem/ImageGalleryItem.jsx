@@ -1,8 +1,10 @@
+import {Item, ItemImage} from "./ImageGalleryItem.styled";
+
 const ImageGalleryItem = ({image, openModal}) => {
     const {webformatURL, tags, largeImageURL} = image;
-    return ( <li class="gallery-item" >
-        <img src={webformatURL} alt={tags} width="200" height="200" onClick={() => {openModal(largeImageURL)}}/>
-      </li>
+    return ( <Item>
+        <ItemImage src={webformatURL} alt={tags} onClick={() => {openModal(largeImageURL)}}/>
+      </Item>
    
  )
 }

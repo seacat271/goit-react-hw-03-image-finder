@@ -5,6 +5,7 @@ import ImageGallery from "./ImageGallery/ImageGallery";
 import Modal from "./Modal/Modal";
 import ButtonLoadMore from "./Button/Button";
 import Spinner from "components/Loader/Loader";
+import { AppBox } from "./App.styled";
 
 
 export class App extends Component {
@@ -57,14 +58,13 @@ page: prevState.page + 1
   }))
 }
 
-open
 
 
 
 render () {
   const {showModal} = this.state;
   return (
-    <div>
+    <AppBox>
       <Searchbar
       onSearchSubmit = {this.onSearchSubmit}
       />
@@ -86,7 +86,7 @@ render () {
         {this.state.status === "pending" && <Spinner/>}
         <ButtonLoadMore
         handleLoadMore ={this.handleLoadMore}/>
-    </div>
+    </AppBox>
   );
 }
 
