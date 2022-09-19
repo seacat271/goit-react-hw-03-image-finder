@@ -1,18 +1,20 @@
-import { SearchbarBox, SearchForm, SearchFormButton, ButtonLabel, SearchFormInput } from "./Searchbar.styled";
-import { ReactComponent as MagniGlass} from "../../icon/MagniGlass.svg"
+import PropTypes from 'prop-types';
+import {
+  SearchbarBox,
+  SearchForm,
+  SearchFormButton,
+  ButtonLabel,
+  SearchFormInput,
+} from './Searchbar.styled';
+import { ReactComponent as MagniGlass } from '../../icon/MagniGlass.svg';
 
-const Searchbar = ({onSearchSubmit}) => {
-
+const Searchbar = ({ onSearchSubmit }) => {
   return (
     <SearchbarBox>
-      
-      <SearchForm
-      onSubmit={onSearchSubmit}>
-        <SearchFormButton 
-        type="submit" 
-        >
-          <MagniGlass width="32" height="32" fill="#3f51b5"/>
-          <ButtonLabel/>
+      <SearchForm onSubmit={onSearchSubmit}>
+        <SearchFormButton type="submit" aria-label='search image'>
+          <MagniGlass width="32" height="32" fill="#3f51b5" />
+          <ButtonLabel />
         </SearchFormButton>
 
         <SearchFormInput
@@ -27,3 +29,7 @@ const Searchbar = ({onSearchSubmit}) => {
   );
 };
 export default Searchbar;
+
+Searchbar.propTypes = {
+  onSearchSubmit: PropTypes.func.isRequired,
+};
