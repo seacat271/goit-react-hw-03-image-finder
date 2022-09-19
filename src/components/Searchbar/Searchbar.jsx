@@ -1,19 +1,21 @@
 import { SearchbarBox, SearchForm, SearchFormButton, ButtonLabel, SearchFormInput } from "./Searchbar.styled";
+import { ReactComponent as MagniGlass} from "../../icon/MagniGlass.svg"
 
 const Searchbar = ({onSearchSubmit}) => {
 
   return (
     <SearchbarBox>
+      
       <SearchForm
       onSubmit={onSearchSubmit}>
         <SearchFormButton 
         type="submit" 
         >
-          <ButtonLabel>Search</ButtonLabel>
+          <MagniGlass width="32" height="32" fill="#3f51b5"/>
+          <ButtonLabel/>
         </SearchFormButton>
 
         <SearchFormInput
-          class="input"
           type="text"
           autoComplete="off"
           autoFocus
