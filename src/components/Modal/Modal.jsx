@@ -87,6 +87,7 @@ export default Modal;
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  imagesList: PropTypes.arrayOf(PropTypes.object).isRequired,
   image: PropTypes.shape({
     largeImageURL: PropTypes.string.isRequired,
     tags: PropTypes.string.isRequired,
