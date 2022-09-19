@@ -2,14 +2,15 @@ import PropTypes from 'prop-types';
 import { Item, ItemImage } from './ImageGalleryItem.styled';
 
 const ImageGalleryItem = ({ image, openModal }) => {
-  const { webformatURL, tags, largeImageURL } = image;
+  const { webformatURL, tags } = image;
   return (
+
     <Item>
       <ItemImage
         src={webformatURL}
         alt={tags}
         onClick={() => {
-          openModal(largeImageURL);
+          openModal(image);
         }}
       />
     </Item>

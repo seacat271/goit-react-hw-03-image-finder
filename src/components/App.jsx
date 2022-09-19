@@ -19,14 +19,15 @@ export class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
+    const {query, page} = this.state;
     if (
-      prevState.query !== this.state.query ||
-      prevState.page !== this.state.page
+      prevState.query !== query ||
+      prevState.page !== page
     ) {
       this.setState({ status: 'pending' });
       this.FetchAPI(this.state)
         .then(images => {
-          if (prevState.query !== this.state.query) {
+          if (prevState.query !== query) {
             this.setState({ images: images.hits, status: 'resolved' });
           } else {
             this.setState(prevState => ({
@@ -57,18 +58,19 @@ export class App extends Component {
   };
 
   onSearchSubmit = event => {
+    const {target} = event
     event.preventDefault();
-    if (event.target.query.value.trim() === '') return;
+    if (target.query.value.trim() === '') return;
     this.setState({
-      query: event.target.query.value.toLowerCase().trim(),
+      query: target.query.value.toLowerCase().trim(),
       page: 1,
       images: [],
     });
-    event.target.reset();
+    target.reset();
   };
 
-  openModal = url => {
-    this.setState({ showModal: url });
+  openModal = image => {
+    this.setState({ showModal: image });
   };
 
   closeModal = () => {
@@ -82,25 +84,26 @@ export class App extends Component {
   };
 
   render() {
-    const { showModal } = this.state;
+    const { showModal, images, status, error } = this.state;
     return (
       <AppBox>
         <Searchbar onSearchSubmit={this.onSearchSubmit} />
-        {(this.state.status === 'resolved' ||
-          this.state.status === 'pending') && (
-          <ImageGallery openModal={this.openModal} images={this.state.images} />
+        {(status === 'resolved' ||
+          status === 'pending') && (
+          <ImageGallery openModal={this.openModal} images={images} />
         )}
         {showModal && (
           <Modal
             onClose={this.closeModal}
-            modalImage={this.state.showModal}
+            image={showModal}
+            imagesList = {images}
           ></Modal>
         )}
-        {this.state.status === 'rejected' && (
-          <h1>{this.state.error.message}</h1>
+        {status === 'rejected' && (
+          <h1>{error.message}</h1>
         )}
-        {this.state.status === 'pending' && <Spinner/>}
-        {this.state.status === 'resolved' && (
+        {status === 'pending' && <Spinner/>}
+        {status === 'resolved' && (
           <ButtonLoadMore handleLoadMore={this.handleLoadMore} />
         )}
       </AppBox>
