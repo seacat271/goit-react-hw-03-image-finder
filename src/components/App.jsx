@@ -42,9 +42,14 @@ export class App extends Component {
         })
         .catch(error => this.setState({ error, statue: 'rejected' }));
     }
-    window.scrollTo({
-      top: snapshot - 200,
-      behavior: 'smooth',
+    // window.scrollTo({
+    //   top: snapshot - 200,
+    //   behavior: 'smooth',
+    // });
+
+    window.scrollBy({
+      top: window.innerHeight - 76,
+      behavior: "smooth",
     });
 
 

@@ -49,7 +49,6 @@ class Modal extends Component {
     this.setState({ showImage: imagesList[IndexImage + step] });
   };
 
-
   loadingImage = () => {
     this.setState({ isLoading: true });
   };
