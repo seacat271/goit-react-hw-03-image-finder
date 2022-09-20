@@ -103,7 +103,7 @@ export class App extends Component {
           <h1>{error.message}</h1>
         )}
         {status === 'pending' && <Spinner/>}
-        {status === 'resolved' && (
+        {images.length > 0 && (
           <ButtonLoadMore handleLoadMore={this.handleLoadMore} />
         )}
       </AppBox>
