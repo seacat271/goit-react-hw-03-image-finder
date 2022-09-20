@@ -17,6 +17,7 @@ const ModalRoot = document.querySelector('#modal-root');
 class Modal extends Component {
   state = {
     showImage: this.props.image,
+    isLoading: false,
   };
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
@@ -48,14 +49,19 @@ class Modal extends Component {
     this.setState({ showImage: imagesList[IndexImage + step] });
   };
 
+
+  loadingImage = () => {
+    this.setState({ isLoading: true });
+  };
+
   render() {
     const {
       showImage: { largeImageURL, tags },
     } = this.state;
     return createPortal(
       <Overlay onClick={this.handleBackDropClick}>
-        <ModalTab>
-          <img src={largeImageURL} alt={tags} />
+        <ModalTab style={{ display: !this.state.isLoading ? "none" : "block" }}>
+          <img src={largeImageURL} alt={tags} onLoad={this.loadingImage}/>
 
           <TagsBox>
             <TagsText>{tags}</TagsText>
