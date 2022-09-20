@@ -18,7 +18,11 @@ export class App extends Component {
     error: null,
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  getSnapshotBeforeUpdate() {
+    return  document.body.clientHeight;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
     const {query, page} = this.state;
     if (
       prevState.query !== query ||
@@ -38,6 +42,12 @@ export class App extends Component {
         })
         .catch(error => this.setState({ error, statue: 'rejected' }));
     }
+    window.scrollTo({
+      top: snapshot - 200,
+      behavior: 'smooth',
+    });
+
+
   }
 
   FetchAPI = async ({ page, query }) => {
